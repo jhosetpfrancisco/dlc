@@ -1,0 +1,14 @@
+{
+  "name": "dlc",
+  "owner": {
+    "name": "Jhosetp Francisco",
+    "url": "https://github.com/jhosetpfrancisco"
+  },
+  "plugins": [
+    {
+      "name": "dlc",
+      "source": "./",
+      "description": "Personal AI-DLC engine — workspace- and language-agnostic development lifecycle for Claude Code."
+    }
+  ]
+}

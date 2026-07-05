@@ -1,0 +1,23 @@
+{
+  "name": "dlc",
+  "description": "Personal AI-DLC engine — workspace- and language-agnostic development lifecycle for Claude Code: repo discovery, per-repo context loading, and an adaptive plan → approve → build → verify → ship cycle.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Jhosetp Francisco",
+    "url": "https://github.com/jhosetpfrancisco"
+  },
+  "homepage": "https://github.com/jhosetpfrancisco/dlc",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jhosetpfrancisco/dlc"
+  },
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "claude-code-plugin",
+    "ai-dlc",
+    "spec-driven-development",
+    "agentic-coding",
+    "developer-workflow"
+  ]
+}
