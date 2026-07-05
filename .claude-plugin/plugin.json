@@ -7,10 +7,7 @@
     "url": "https://github.com/jhosetpfrancisco"
   },
   "homepage": "https://github.com/jhosetpfrancisco/dlc",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jhosetpfrancisco/dlc"
-  },
+  "repository": "https://github.com/jhosetpfrancisco/dlc",
   "license": "MIT",
   "keywords": [
     "claude-code",
