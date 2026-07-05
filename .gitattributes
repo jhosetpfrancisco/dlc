@@ -1,0 +1,5 @@
+# Hooks must stay LF everywhere — CRLF breaks bash on Windows checkouts.
+* text=auto
+*.sh text eol=lf
+*.md text
+*.json text
