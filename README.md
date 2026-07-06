@@ -62,8 +62,28 @@ That is why this repo can be public: there is nothing of any real project in it.
 - **guard-commit** (`PreToolUse` on Bash): blocks commits carrying AI co-author
   trailers or "generated with" footers, and blocks force-pushes (escape hatch:
   prefix with `DLC_ALLOW_FORCE=1` after an explicit owner confirmation).
-- **session-state** (`SessionStart`): if the cwd is a DLC workspace, prints the
-  live-state header so every session starts oriented.
+- **scope-guard** (`PreToolUse` on Edit/Write/NotebookEdit/Bash): mechanical
+  enforcement of the repo scope pinned by `/dlc:ctx`. Instructions fade from a
+  compacted context; this hook does not — it runs on every tool call. With a
+  pin, file writes are allowed only inside the pinned repo dir and the
+  workspace shared docs; writes into another sub-repo (or into a git repo
+  outside the workspace) are blocked with a message that re-anchors the model.
+  Without a pin, writes inside any sub-repo are blocked: run `/dlc:ctx` first.
+  Mutating git commands aimed at another sub-repo are blocked too (escape
+  hatch: `DLC_ALLOW_CROSS=1` after an explicit owner confirmation). Owner kill
+  switch: create `.dlc/scope-off` in the workspace root. Known limitation:
+  Bash output redirections (`> other-repo/file`) are not caught — the guard
+  covers the file tools, which is how agents actually edit.
+- **scope-remind** (`UserPromptSubmit`): injects one line per user prompt with
+  the pinned scope, so it survives long sessions and compactions.
+- **session-state** (`SessionStart`, including after every compaction): if the
+  cwd is a DLC workspace, prints the live-state header — and when a scope is
+  pinned, re-injects that repo's full manifest card so the model is re-anchored
+  right after its context was summarized.
+
+The session scope pins live in `.dlc/scope.<session_id>` at the workspace root
+(the directory self-ignores via `.dlc/.gitignore`); parallel agents on the same
+workspace each keep their own pin.
 
 ## Design tenets
 

@@ -25,11 +25,22 @@ If no manifest exists: say so, suggest running `/dlc:init`, and STOP. Do not imp
 4. Read, IN ORDER, every entry doc listed for the repo. Do not skip any. If one is missing on disk, report it as manifest drift instead of guessing around it.
 5. Read the **policies file** if you have not read it in this session (hard rules apply to every change).
 
-## 3. Confirm with the operational card
+## 3. Pin the write scope
+
+Resolve the repo's **directory** from its manifest entry (the directory named in the repo heading, without the trailing slash) and run this exact Bash command from the workspace root:
+
+```
+echo DLC-SCOPE-SET repo=$ARGUMENTS dir=<repo-dir>
+```
+
+The `scope-guard` hook intercepts the marker and binds this session to that directory: from now on, file writes outside `<repo-dir>/` (plus the workspace shared docs) are mechanically blocked — the pin lives outside the context window, so it survives compaction. Re-running `/dlc:ctx` with another repo moves the pin; `echo DLC-SCOPE-CLEAR` removes it. If the command errors saying the directory does not exist, the manifest has drift — report it, do not guess a different directory.
+
+## 4. Confirm with the operational card
 
 Print a short card so the user knows the context is loaded:
 
 - **Repo:** what it is, stack
+- **Scope:** pinned to `<repo-dir>/` — writes elsewhere are blocked by the scope-guard hook
 - **Commands:** dev · build · green (verification)
 - **Hard rules:** the non-negotiables that apply here
 - **Dangers:** DBs it may/may not touch, version pins, out-of-workspace references
